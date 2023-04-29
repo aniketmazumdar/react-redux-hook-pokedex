@@ -1,6 +1,6 @@
 import "./index.css";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Grid from "@mui/material/Grid";
 import TuneIcon from "@mui/icons-material/Tune";
 import {
@@ -20,45 +20,26 @@ import {
 } from "../../../redux/actions";
 
 
-const mapStateToProps = (state) => {
-  return {
-    allPokemons: state.allPokemons,
-    searchStr: state.searchStr,
-    selectedTypes: state.selectedTypes,
-    selectedGenders: state.selectedGenders,
-    statList: state.statList,
-    statRangeMinLevel: state.statRangeMinLevel,
-    statRangeMaxLevel: state.statRangeMaxLevel,
-    allTypes: state.allTypes
-  };
-};
+export const Filter = () => {
+  const globalState = useSelector(state => state);
+  const { allPokemons, searchStr, selectedTypes, selectedGenders, statList, statRangeMinLevel, statRangeMaxLevel, allTypes } = globalState;
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchTypeListFromApi: () => dispatch(fetchTypeListFromApi()),
-    getGenderNameList: () => dispatch(getGenderNameList()),
-    fetchStatListFromApi: () => dispatch(fetchStatListFromApi()),
-    filterAttrUpdate: ({ type, data }) => dispatch(filterAttrUpdate({ type, data })),
-    filterDataUpdate: () => dispatch(filterDataUpdate()),
-  };
-};
-
-const FilterComp = (props) => {
   const [genders, setGenders] = useState([]);
   const [isOpenedModal, setIsOpenedModal] = useState(false);
   const [showStatDiv, setShowStatDiv] = useState(false);
 
   const loadDropdownsData = async () => {
-    await props?.fetchTypeListFromApi();
+    await dispatch(fetchTypeListFromApi());
 
-    const genderApiRes = await props?.getGenderNameList();
+    const genderApiRes = await dispatch(getGenderNameList());
     setGenders(genderApiRes);
 
-    await props?.fetchStatListFromApi();
+    await dispatch(fetchStatListFromApi());
   };
 
   const onChangeFilter = (type, data) => {
-    props?.filterAttrUpdate({ type, data });
+    dispatch(filterAttrUpdate({ type, data }));
   };
 
   const onSubmitFilter = (filterData = {}) => {
@@ -72,13 +53,13 @@ const FilterComp = (props) => {
   }, []);
 
   useEffect(() => {
-    props?.filterDataUpdate();
+    dispatch(filterDataUpdate());
   }, [
-    props?.searchStr,
-    props?.selectedTypes,
-    props?.selectedGenders,
-    JSON.stringify(props?.statList),
-    props?.allPokemons,
+    searchStr,
+    selectedTypes,
+    selectedGenders,
+    JSON.stringify(statList),
+    allPokemons,
   ]);
 
   return (
@@ -104,9 +85,9 @@ const FilterComp = (props) => {
                 id="type"
                 classes="filter-dropdown"
                 label="Type"
-                dataList={props?.allTypes}
+                dataList={allTypes}
                 callback={(val) => onChangeFilter("selectedTypes", val)}
-                selected={props?.selectedTypes}
+                selected={selectedTypes}
               />
             </Grid>
             <Grid item md={4} xs={12}>
@@ -117,7 +98,7 @@ const FilterComp = (props) => {
                 label="Gender"
                 dataList={genders}
                 callback={(val) => onChangeFilter("selectedGenders", val)}
-                selected={props?.selectedGenders}
+                selected={selectedGenders}
               />
             </Grid>
             <Grid
@@ -132,7 +113,7 @@ const FilterComp = (props) => {
                 id="stat"
                 classes="filter-input"
                 label="Stats"
-                placeholder={getDropdownPlaceholder(props?.statList)}
+                placeholder={getDropdownPlaceholder(statList)}
                 readOnly={true}
               />
             </Grid>
@@ -158,9 +139,9 @@ const FilterComp = (props) => {
         >
           <Grid item md={6} xs={12}>
             <FilterStatRanges
-              dataList={props?.statList}
-              minLevel={props?.statRangeMinLevel}
-              maxLevel={props?.statRangeMaxLevel}
+              dataList={statList}
+              minLevel={statRangeMinLevel}
+              maxLevel={statRangeMaxLevel}
               closeModalEvent={setShowStatDiv}
               onSubmitEvent={(val) => onChangeFilter("statList", val)}
             />
@@ -175,13 +156,13 @@ const FilterComp = (props) => {
           isOpen={isOpenedModal}
           childComp={
             <FilterDropdownsMobile
-              types={props?.allTypes}
-              checkedTypes={props?.selectedTypes}
+              types={allTypes}
+              checkedTypes={selectedTypes}
               genders={genders}
-              checkedGenders={props?.selectedGenders}
-              stats={props?.statList}
-              minStatLevel={props?.statRangeMinLevel}
-              maxStatLevel={props?.statRangeMaxLevel}
+              checkedGenders={selectedGenders}
+              stats={statList}
+              minStatLevel={statRangeMinLevel}
+              maxStatLevel={statRangeMaxLevel}
               showStatDiv={showStatDiv}
               setShowStatDiv={setShowStatDiv}
               submitFilterValues={onSubmitFilter}
@@ -193,5 +174,3 @@ const FilterComp = (props) => {
     </>
   );
 };
-
-export const Filter = connect(mapStateToProps, mapDispatchToProps)(FilterComp);

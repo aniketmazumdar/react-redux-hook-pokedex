@@ -1,27 +1,16 @@
 import "./index.css";
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { CardBox, Modal, PageLoader, PokedexDetails } from "../../";
 import { getSiblingPokemonBasicDetails } from "../../../utils";
 import { getPokemonList } from "../../../redux/actions";
 
 
-const mapStateToProps = (state) => {
-  return {
-    filteredPokemons: state.filteredPokemons,
-    allPokemons: state.allPokemons,
-    pokemonListOffset: state.pokemonListOffset,
-    IS_POKEMON_LIST_PROCESSING: state.IS_POKEMON_LIST_PROCESSING,
-  };
-};
+export const PokedexList = () => {
+  const globalState = useSelector(state => state);
+  const { filteredPokemons, allPokemons, pokemonListOffset, IS_POKEMON_LIST_PROCESSING } = globalState;
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPokemonList: () => dispatch(getPokemonList())
-  };
-};
-
-const PokedexListComp = (props) => {
   const [isMountModal, setIsMountModal] = useState(false);
   const [selectedPokemonId, setSelectedPokemonId] = useState(null);
 
@@ -32,7 +21,7 @@ const PokedexListComp = (props) => {
 
   const changePokemon = (flag = null) => {
     const siblingPokemon = getSiblingPokemonBasicDetails(
-      props?.allPokemons,
+      allPokemons,
       selectedPokemonId,
       flag
     );
@@ -44,32 +33,32 @@ const PokedexListComp = (props) => {
       window.innerHeight + document.documentElement.scrollTop >
       document.documentElement.offsetHeight - 1
     ) {
-      if (!props?.IS_POKEMON_LIST_PROCESSING) {
-        props?.getPokemonList()
+      if (!IS_POKEMON_LIST_PROCESSING) {
+        dispatch(getPokemonList())
       }
     }
   };
 
   useEffect(() => {
-    props?.getPokemonList();
+    dispatch(getPokemonList());
   }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
     return () => window.removeEventListener("scroll", handleScrollEvent);
-  }, [props?.pokemonListOffset, props?.IS_POKEMON_LIST_PROCESSING]);
+  }, [pokemonListOffset, IS_POKEMON_LIST_PROCESSING]);
 
   return (
     <>
       <div className="pokedex-list-wrap">
         <h4>
-          Showing {props?.filteredPokemons?.length} of {props?.allPokemons?.length} results
+          Showing {filteredPokemons?.length} of {allPokemons?.length} results
         </h4>
 
-        {props?.filteredPokemons?.length > 0 ? (
+        {filteredPokemons?.length > 0 ? (
           <>
             <div className="pokedex-list" data-testid="test-pokedex-list">
-              {props?.filteredPokemons?.map((item, indx) => {
+              {filteredPokemons?.map((item, indx) => {
                 return (
                   <CardBox
                     key={indx}
@@ -89,7 +78,7 @@ const PokedexListComp = (props) => {
               })}
             </div>
 
-            {props?.IS_POKEMON_LIST_PROCESSING && <PageLoader color="grey" text="Loading more items..." />}
+            {IS_POKEMON_LIST_PROCESSING && <PageLoader color="grey" text="Loading more items..." />}
           </>
         ) : (
           <h4>No result item found!!</h4>
@@ -111,5 +100,3 @@ const PokedexListComp = (props) => {
     </>
   );
 };
-
-export const PokedexList = connect(mapStateToProps, mapDispatchToProps)(PokedexListComp);

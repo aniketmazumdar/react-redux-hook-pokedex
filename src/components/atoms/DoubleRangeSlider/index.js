@@ -2,8 +2,9 @@ import "./index.css";
 import ReactSlider from 'react-slider'
 
 export const DoubleRangeSlider = (props) => {
-  const { indexNo = 0, name = '', minLevel = 0, maxLevel = 100, values, onAfterChange } = props;
-  
+  const { name = '', minLevel = 0, maxLevel = 100, values, onAfterChangeHandler } = props;
+
+
   return (
     <div className="range-slider-block">
       <div className="range-slider-level-indicators">{minLevel}</div>
@@ -21,7 +22,7 @@ export const DoubleRangeSlider = (props) => {
         max={maxLevel}
         defaultValue={[minLevel, maxLevel]}
         value={values}
-        onAfterChange={(value) => onAfterChange({ value, indexNo, name })}
+        onAfterChange={(value) => onAfterChangeHandler(name, value)}
         {...props}
       />
       <div className="range-slider-level-indicators">{maxLevel}</div>

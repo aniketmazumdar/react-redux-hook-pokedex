@@ -1,6 +1,6 @@
 import "./index.css";
 import { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   PokedexDetailsBasicInfo,
   PokedexDetailsCharacteristics,
@@ -11,24 +11,11 @@ import {
 import { getPokemonBasicDetailsInfo } from "../../../redux/actions";
 
 
-const mapStateToProps = (state) => {
-  return {
-    IS_POKEMON_BASIC_DETAILS_PROCESSING: state.IS_POKEMON_BASIC_DETAILS_PROCESSING,
-  };
-};
+export const PokedexDetails = ({ pokemonId = null, closeModalEvent = null, changePokemonEvent = null }) => {
+  const globalState = useSelector(state => state);
+  const { IS_POKEMON_BASIC_DETAILS_PROCESSING} = globalState;
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPokemonBasicDetailsInfo: (pokemonId) => dispatch(getPokemonBasicDetailsInfo(pokemonId)),
-  };
-};
-
-const PokedexDetailsComp = (props) => {
-  const {
-    pokemonId = null,
-    closeModalEvent = null,
-    changePokemonEvent = null,
-  } = props;
   const [pokemonDetails, setPokemonDetails] = useState({
     id: '',
     formattedId: '',
@@ -71,7 +58,7 @@ const PokedexDetailsComp = (props) => {
       thirdEvolutionBasicDetails,
       prevPokemonName,
       nextPokemonName,
-    } = await props?.getPokemonBasicDetailsInfo(pokemonId).then(res => res);
+    } = await dispatch(getPokemonBasicDetailsInfo(pokemonId)).then(res => res);
 
     await setPokemonDetails({
       id,
@@ -113,7 +100,7 @@ const PokedexDetailsComp = (props) => {
               types: pokemonDetails?.types,
               pokemonDesc: pokemonDetails?.pokemonDesc,
             }}
-            isLoading={props?.IS_POKEMON_BASIC_DETAILS_PROCESSING}
+            isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
             closeModalEvent={closeModalEvent}
             changePokemonEvent={changePokemonEvent}
           />
@@ -128,10 +115,10 @@ const PokedexDetailsComp = (props) => {
               types: pokemonDetails?.types,
               weakAgainsts: pokemonDetails?.weakAgainsts,
             }}
-            isLoading={props?.IS_POKEMON_BASIC_DETAILS_PROCESSING}
+            isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
           />
 
-          <PokedexDetailsStrategies stats={pokemonDetails?.stats} isLoading={props?.IS_POKEMON_BASIC_DETAILS_PROCESSING} />
+          <PokedexDetailsStrategies stats={pokemonDetails?.stats} isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING} />
 
           <PokedexDetailsEvolutionChain
             compData={{
@@ -139,7 +126,7 @@ const PokedexDetailsComp = (props) => {
               secondPokemonBasicDetails: pokemonDetails?.secondEvolutionBasicDetails,
               thirdPokemonBasicDetails: pokemonDetails?.thirdEvolutionBasicDetails,
             }}
-            isLoading={props?.IS_POKEMON_BASIC_DETAILS_PROCESSING}
+            isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
           />
 
           <PokedexDetailsButtonGroup
@@ -147,7 +134,7 @@ const PokedexDetailsComp = (props) => {
               prevPokemonName: pokemonDetails?.prevPokemonName,
               nextPokemonName: pokemonDetails?.nextPokemonName,
             }}
-            isLoading={props?.IS_POKEMON_BASIC_DETAILS_PROCESSING}
+            isLoading={IS_POKEMON_BASIC_DETAILS_PROCESSING}
             changePokemonEvent={changePokemonEvent}
           />
         </>
@@ -157,5 +144,3 @@ const PokedexDetailsComp = (props) => {
     </div>
   );
 };
-
-export const PokedexDetails = connect(mapStateToProps, mapDispatchToProps)(PokedexDetailsComp);
