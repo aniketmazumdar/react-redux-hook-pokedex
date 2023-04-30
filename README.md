@@ -1,5 +1,5 @@
-# Pokedex - React Redux Thunk App
-React Redux Thunk app - Pokemon list page with filtering by name, id, gender, type, strategy range etc and details on popup.
+# Pokedex - React Redux Hook App
+React Redux Hook app - Pokemon list page with filtering by name, id, gender, type, strategy range etc and details on popup.
 
 ![Screenshot](/src/assets/img/desktop.png?raw=true)
 
@@ -13,6 +13,28 @@ Project is created with:
 * Redux (4.2.1)
 * Redux Thunk (2.4.2)
 * CSS 3
+
+Here we use two redux hooks: `useSelector` & `useDispatch` instead of `connect`.\
+**useSelector**: is used to fetch the redux state.\
+**useDispatch**: is used to trigger / dispatch the action.
+
+```js
+import { useSelector, useDispatch } from 'react-redux'
+import { increaseCount, decreaseCount } from './actions'
+
+export default App = () => {
+  const dispatch = useDispatch()
+  const globalState = useSelector(state => state);
+
+  return (
+    <div className="App">
+      <h4>COUNT: { globalState.count }</h4>
+      <button onClick={() => dispatch(increaseCount(globalState.count+1)}>INCREASE</button>
+      <button onClick={() => dispatch(decreaseCount(globalState.count-1)}>DECREASE</button>
+    </div>
+  );
+}
+```
 
 
 ### API Services
