@@ -1,7 +1,7 @@
 # Pokedex - React Redux Thunk App
 React Redux Thunk app - Pokemon list page with filtering by name, id, gender, type, strategy range etc and details on popup.
 
-![Screenshot](/blob/main/src/assets/img/desktop.png?raw=true)
+![Screenshot](/src/assets/img/desktop.png?raw=true)
 
 ### Description
 This is a single page responsive app. Page contains pokemon card list. There is a **Search Box**, where we can filter the pokemon list by id & name. There are two filter dropdowns based on **Type** and **Gender**. There is a **multiple range slider** based on **Stat** values for filtering items. By clicking any card item, **Pokemon Details Popup** is appeared. Here **Page Scroll Pagination** feature is integrated.
