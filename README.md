@@ -3,8 +3,11 @@ React Redux Hook app - Pokemon list page with filtering by name, id, gender, typ
 
 ![Screenshot](/src/assets/img/desktop.png?raw=true)
 
+
+
 ### Description
 This is a single page responsive app. Page contains pokemon card list. There is a **Search Box**, where we can filter the pokemon list by id & name. There are two filter dropdowns based on **Type** and **Gender**. There is a **multiple range slider** based on **Stat** values for filtering items. By clicking any card item, **Pokemon Details Popup** is appeared. Here **Page Scroll Pagination** feature is integrated.
+
 
 
 ### Technologies
@@ -15,6 +18,7 @@ Project is created with:
 * CSS 3
 
 Here we use two redux hooks: `useSelector` & `useDispatch` instead of `connect`.\
+
 **useSelector**: is used to fetch the redux state.\
 **useDispatch**: is used to trigger / dispatch the action.
 
@@ -37,8 +41,10 @@ export default App = () => {
 ```
 
 
+
 ### API Services
-* [pokeapi.co](https://pokeapi.co/api/v2/) is used to generate Pokemon data.
+[pokeapi.co](https://pokeapi.co/api/v2/) is used to generate Pokemon data.
+
 
 
 ### Setup Steps
@@ -51,6 +57,7 @@ $ npm start
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
+
 ### Unit Test
 Jest and RTL (React Test Library) are used for unit test cases.
 1. Run command to run the test cases.
@@ -61,6 +68,7 @@ $ npm run test
 
 ![Screenshot](/src/assets/img/coverage.png?raw=true)
 3. Each component has a `index.test.js` file for unit test cases. Everytime after adding or changing the test file, we need to run the test command to check the test result case and reload the coverage file `coverage/index.html` to check the coverage.
+
 
 
 ### Gallery
