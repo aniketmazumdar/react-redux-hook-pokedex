@@ -37,19 +37,19 @@ $ npm run test
 ```
 2. After running the command, `coverage` folder is created. Find the `index.html` and open in the browser. Test coverage is showing here.
 
-![Screenshot](https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/coverage.png?raw=true)
+![Screenshot](/src/assets/img/coverage.png?raw=true)
 3. Each component has a `index.test.js` file for unit test cases. Everytime after adding or changing the test file, we need to run the test command to check the test result case and reload the coverage file `coverage/index.html` to check the coverage.
 
 
 ### Gallery
 <div style="float:left">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/desktop.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/desktop-2.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/desktop-3.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/desktop-4.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/desktop-5.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/mobile-1.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/mobile-2.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/mobile-3.png?raw=true" width="32.5%" height="150">
-<img src="https://github.com/aniketmazumdar/react-redux-pokedex/blob/main/src/assets/img/mobile-4.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/desktop.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/desktop-2.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/desktop-3.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/desktop-4.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/desktop-5.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/mobile-1.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/mobile-2.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/mobile-3.png?raw=true" width="32.5%" height="150">
+<img src="/src/assets/img/mobile-4.png?raw=true" width="32.5%" height="150">
 </div>
